@@ -1,0 +1,24 @@
+{
+    "welcome_message": "Welcome to my React Application",
+    "home_button1": "Go to descriptions",
+
+    "faq": {
+        "title": "Frequent Asked Questions",
+        "questions": [
+            {
+                "q": "how do I switch languages?",
+                "a": "Use the toggle button at the top of the page"
+            },
+            {
+                "q": "is this app free to use?",
+                "a": "Yes, it's free to use and save"
+            },
+            {
+                "q": "how long have I to wait to receive the item?",
+                "a": "Ussually no more than 3 labour days"
+            }
+        ]
+    }
+
+
+}

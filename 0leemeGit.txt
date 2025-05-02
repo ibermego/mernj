@@ -1,0 +1,41 @@
+PASOS A SEGUIR PARA PODER SINCRONIZAR NUESTRO PROYECTO CON GITHUB
+
+Revisar si hay algún directorio .git en nuestra aplicación
+Si lo hay, lo borramos para empezar de nuevo.
+
+1º en el directorio prinpal de la aplicacion, para añadir git a nuestro proyecto:
+    git init
+2º a continuación se añadirá todos los ficheros a git:
+    git add .
+3º ejecutamos un primer commit (punto de version de ficheros):
+    git commit -m "primer commit ficheros"
+
+luego para sincronizar con el github en el que previamente
+hemos creado el repositorio DesarrolloWeb, ejecutamos:
+4º git remote add origin https://github.com/JasonRodriguezGarcia/DesarrolloWeb.git
+5º git branch -M main
+6º git push -u origin main
+
+Con esto tenemos github sincronizado con nuestros ficheros en local
+
+*************************
+para bajarte una copia del git hub de tu nube a local
+
+git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+
+
+*************************
+para actualizar tu github local
+
+git pull
+
+*************************
+para actualizar tu github de la nube
+hacer los pasos 1º 2º 3º
+*************************
+si da error de no acceso en local al hacer git push
+
+git config --global user.name "Jason RG"
+git config --global user.email "jasonrodriguezempleo@gmail.com"
+
+*************************

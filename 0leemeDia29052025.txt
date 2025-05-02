@@ -1,0 +1,116 @@
+
+
+***************
+DIA 29/04/2025
+***************
+/nodejs/Modules
+tenemos almacenada la clase shoppingCart.js que se va probando poco a poco con shoppingCart.test.js. Explicaciones en 
+el propio shoppingCart.test.js
+En dicho directorio ejecutar
+    npm test --coverage
+recordar que para manejar los test hay que:
+instalar en /nodejs
+    npm install --save-dev jest
+Esto se añadirá al package.json tras la instalación
+ "scripts": {
+    "test": "jest"
+  },
+JEST solo funciona con Common Modules
+Modificar package.js y excluir (ojo PONER MÁS TARDE)
+    type:"module": <<-- quitaremos
+
+En Windows, habrá que modificar el package.json para que funcione la opcion de coverage. Incluir la parte de collectCoverage en jest.
+
+"devDependencies": {
+    "jest": "^29.7.0"
+  },
+"jest" :{
+    "collectCoverage": true
+  }
+
+Los ficheros para test deben llamarse "MINOMBREFICHERO.test.js"
+Se ejecutarán todos los ficheros con extensión .test.js con
+    npm test --coverage
+La opción --coverage creará un directorio /nodejs/coverage/icov-report del que podremos ver el fichero index.html que contendrá un diseño
+gráfico de los mismos resultados que aparecen en consola
+
+Dimos teoría de que las variables del código que se ejecutan se guardan a la pila (CALL STACK) y se ejecutan una a una pero las que
+son no primitivas van al montón (HEAP) y que hay un recolector de basura que limpia de la memoria las variales con valor null
+
+
+
+/nodejs/mathFunctions.js y /nodejs/actividadJSDocs.js
+Se usa JSDOC, y su instalación 
+    Agregar "type": "module", al archivo package.json.
+    npm install --save-dev jsdoc
+
+https://github.com/chekulhan/Desarrollo-Web/blob/main/UF1844-Entorno-Servidor/desarrollo-sw/05-documentacion.md
+Para crear documentación de forma automática para explicar el código y a su vez poder verse la explicación al situar el cursor dentro
+encima del nombre de una función. MUY INTERESANTE.
+
+Para generar documentacion:
+    npx jsdoc mathFunctions.js actividadJSDocs.js
+Creará un directorio /out cuyo index.html se podrá abrir arrastrando en el navegador mostrando la información siguiendo lo introducido
+el cada fichero.js
+
+
+CALIDAD DE SOFTWARE
+https://github.com/chekulhan/Desarrollo-Web/blob/main/UF1844-Entorno-Servidor/desarrollo-sw/06-calidad.md
+
+
+USO DE HOOKS
+ficheros src/hooks/useShoppingCart.js, src/pages/descriptios/HomePage.jsx
+Uso de Hooks.
+Hasta ahora lo que hacemos era reutilizar componentes CON INTERFAZ y usabamos el html del return
+Ahora reutilizaremos componentes SIN INTERFAZ retornando un objeto con sus funciones, clases, ... 
+Aprovechamos la clase src/models/shoppingCart.js para convertirla en un hook y sus metodos pasarían a ser 
+funciones normales definidas con "const" y tendría un retur{}
+Su nombre empezaría por useXXXXXX.js
+/hooks/useShoppingCart.js
+Dicho hook contiene variables (items) y funciones(addItem, clearCart) que las devolveremos como objeto en el return
+    // OJO NO VA ENTRE PARENTESIS !!!
+    return { 
+        items, addItem, clearCart // exportamos los elementos necesarios
+    }
+En el componente que lo vaya a usar importaremos el hook 
+    import useShoppingCart from "../../hooks/useShoppingCart";
+Recuperamos lo necesario del hook
+    const { items, addItem, clearCart} = useShoppingCart("Euros")
+Lo usaremos a conveniencia en nuestro componente "normal"
+    return (
+        <>
+            <button onClick={handleAddItem}>Add item</button>
+            <ul>
+                {items.map(item => ( //<<--- aqui el items viene del useShoppingCart
+                    <>
+                        <li key={item.id}>{item.nombre} - {item.cantidad} - {item.precio}€</li>
+                    </>
+                ))}
+            </ul>
+        </>
+    )
+
+
+
+TRADUCCION
+/react-frontend/src/index.js
+/react-frontend/src/pages/descriptions/Homepage.jsx
+/react-frontend/src/utils/locales/*.json
+Para los idionams, por un problema por incompatibilidad de dependencias hay que ejecutar
+    npm uninstall typescript react-scripts fork-ts-checker-webpack-plugin
+    npm cache clean --force
+instalar
+    npm install i18next react-i18next
+    npm install react-scripts
+Probar
+    npm start
+Copiar archivo para configuración de idiomas en src/utils/i18n.js
+En /utiles/locales/, tendrás archivos de diferentes idiomas, como en.json y es.json:
+json dentro de cada fichero:
+{
+    "welcome_message": "Bienvenido a la Aplicación React"
+}
+En index.js o App.js, incluir la referencia a i18n.js para poder usarlo en la aplicación:
+    import './utils/i18n';  // Path is relative to the current file (index.js)
+En componente importar el hook
+    import { useTranslation } from 'react-i18next';
